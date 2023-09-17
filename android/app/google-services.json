@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "748675522877",
+    "project_id": "fir-callkit-video-f1e54",
+    "storage_bucket": "fir-callkit-video-f1e54.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748675522877:android:b8fe47cc7740e88e88e554",
+        "android_client_info": {
+          "package_name": "com.example.demo_callkit_video"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAI5-nO6lIuzxX2NT2hfuvLol-gzo-Xy0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
