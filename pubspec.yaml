@@ -37,7 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^2.15.1
   firebase_messaging: ^14.6.7
-  awesome_notifications: ^0.7.4+1
+  awesome_notifications: ^0.6.21
+  http: ^0.13.5
 dev_dependencies:
   flutter_test:
     sdk: flutter

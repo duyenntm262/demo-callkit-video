@@ -8,7 +8,7 @@ import 'homepage.dart';
 Future<void> backgroundHandler(RemoteMessage message) async {
   String? title = message.notification!.title;
   String? body = message.notification!.body;
-    FAwesomeNotifications().createNotification(
+    AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: 123,
         channelKey: "call_channel",
@@ -35,7 +35,7 @@ Future<void> backgroundHandler(RemoteMessage message) async {
 }
 
 Future<void> main() async {
-  await FAwesomeNotifications().initialize(null, [
+  AwesomeNotifications().initialize(null, [
     NotificationChannel(
         channelKey: "call_channel",
         channelName: "Call Channel",

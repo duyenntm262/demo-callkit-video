@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       String? title = message.notification!.title;
       String? body = message.notification!.body;
-      FAwesomeNotifications().createNotification(
+      AwesomeNotifications().createNotification(
           content: NotificationContent(
             id: 123,
             channelKey: "call_channel",
@@ -67,22 +70,23 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             InkWell(
-              onTap: () {
-
+              onTap: () async {
+                String? token = await FirebaseMessaging.instance.getToken();
+                print(token);
               },
               child: Container(
                 width: 100,
                 height: 50,
                 padding: const EdgeInsets.all(5),
                 decoration: const BoxDecoration(
-                  color: Colors.orangeAccent
+                    color: Colors.orangeAccent
                 ),
                 child: const Text("Get Token", textAlign: TextAlign.center,),
               ),
             ),
             InkWell(
               onTap: () {
-
+                sendPushNotification();
               },
               child: Container(
                 width: 100,
@@ -98,5 +102,34 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+  Future<void> sendPushNotification() async {
+    try {
+      http.Response response = await http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'key=AAAArlCJ4T0:APA91bE662FBMa7kP-DyYwOxmqMLFDHkmSjcDOF0AFbevXHRUJBxCKoLczx15DZnieGW3YwfoSig-iprTHfBiTdaNCIAuhSAbnoUqsNSjs5N22C_RRHLiJC1xXqZBC6V610ngwUUWkzk',
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            'notification': <String, dynamic>{
+              'body': "Din",
+              'title': 'Incoming Call',
+            },
+            'priority': 'high',
+            'data': <String, dynamic>{
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'id': '1',
+              'status': 'done'
+            },
+            'to': "cyq6v-jPQ-efi1_f7lGtqC:APA91bF0GmvQXFVx8ju10gW0l9UGGC6XgNnrTYqYv2g_8oB4Ii5fbEEp9k85ZIPuYs6hl2LiII5u0nB7EDouFDbtwrqw6Hyi3sbIWxlzHi4x8QI419RFmGtgApYgAB3ff7QcEUrDJyLW",
+          },
+        ),
+      );
+      response;
+    } catch (e) {
+      e;
+    }
   }
 }
